@@ -135,7 +135,8 @@ if (!function_exists("validasi_input_artikel")) {
 }
 
 if (!function_exists('agama')) {
-    function agama(){
+    function agama()
+    {
         return [
             "ISLAM",
             "KRISTEN",
@@ -144,5 +145,14 @@ if (!function_exists('agama')) {
             "BUDHA",
             "KHONGHUCU"
         ];
+    }
+}
+
+
+if (!function_exists('validasiRole')) {
+    function validasiRole($jenisRole)
+    {
+        $CI = &get_instance();
+        return $CI->userData->level == $jenisRole;
     }
 }

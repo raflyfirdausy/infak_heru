@@ -10,7 +10,22 @@ class Dashboard extends RFLController
 
     public function index()
     {
+        if (validasiRole("DONATUR")) {
+            $this->dashboardDonatur();
+        } else {
+            $this->dashboardAdmin();
+        }
+    }
+
+    public function dashboardDonatur()
+    {
         $data = [];
-        $this->loadViewBack("dashboard/index", $data);
+        $this->loadViewBack("dashboard/dashboard_donatur", $data);
+    }
+
+    public function dashboardAdmin()
+    {
+        $data = [];
+        $this->loadViewBack("dashboard/dashboard_admin", $data);
     }
 }

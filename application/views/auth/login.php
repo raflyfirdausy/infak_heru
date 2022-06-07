@@ -66,6 +66,11 @@
                             <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <span>Pendaftaran donatur ?</span> <span><a href="<?= base_url("auth/register") ?>">Klik disini !</a></span>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,123 +1,105 @@
-<?php if ($this->userData->level == "KARYAWAN" || $this->userData->level == "KEPALA_APOTEK") : ?>
-    <li class="nav-header">Master Data Apotek</li>
+<?php if (validasiRole("KEPALA_PONDOK") || validasiRole("PETUGAS")) : ?>
+    <li class="nav-header">Master Data</li>
+
     <li class="nav-item">
-        <a href="<?= base_url("master/apotek/identitas") ?>" class="nav-link">
+        <a href="<?= base_url("master/identitas") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Identitas Apotek</p>
+            <p>Identitas Aplikasi</p>
         </a>
     </li>
 
     <li class="nav-item">
-        <a href="<?= base_url("master/apotek/suplier") ?>" class="nav-link">
+        <a href="<?= base_url("master/rekening") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Data Suplier</p>
+            <p>Data Rekening Pondok</p>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="<?= base_url("master/jenis-infak") ?>" class="nav-link">
+            <i class="nav-icon fas fa-users-cog"></i>
+            <p>Jenis Infak</p>
         </a>
     </li>
 
     <li class="nav-item">
         <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-pie"></i>
+            <i class="nav-icon fas fa-users-cog"></i>
             <p>
                 Pengguna
                 <i class="right fas fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
+            <?php if (validasiRole("KEPALA_PONDOK")) : ?>
+                <li class="nav-item">
+                    <a href="<?= base_url("master/pengguna/") ?>" class="nav-link">
+                        <p>Kepala Pondok</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url("master/pengguna/petugas") ?>" class="nav-link">
+                        <p>Petugas</p>
+                    </a>
+                </li>
+            <?php endif ?>
+
             <li class="nav-item">
-                <a href="<?= base_url("master/apotek/pengguna/kepala-apotek") ?>" class="nav-link">
-                    <p>Kepala Apotek</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/pengguna/karyawan") ?>" class="nav-link">
-                    <p>Karyawan</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/pengguna/suplier") ?>" class="nav-link">
-                    <p>Suplier</p>
+                <a href="<?= base_url("master/pengguna/donatur") ?>" class="nav-link">
+                    <p>Donatur</p>
                 </a>
             </li>
         </ul>
     </li>
 
+    <li class="nav-header">Transaksi Infak</li>
 
     <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-pie"></i>
-            <p>
-                Obat
-                <i class="right fas fa-angle-left"></i>
-            </p>
-        </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/obat/golongan") ?>" class="nav-link">
-                    <p>Golongan Obat</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/obat/kategori") ?>" class="nav-link">
-                    <p>Kategori Obat</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/obat/satuan") ?>" class="nav-link">
-                    <p>Satuan Obat</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/obat/data") ?>" class="nav-link">
-                    <p>Obat Masuk</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?= base_url("master/apotek/obat/stok") ?>" class="nav-link">
-                    <p>Data Stok obat</p>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="nav-header">Transaksi Apotek</li>
-
-    <li class="nav-item">
-        <a href="<?= base_url("transaksi/apotek/pemesanan") ?>" class="nav-link">
+        <a href="<?= base_url("transaksi/infak/belum") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Pemesanan Obat</p>
+            <p>Belum Di ACC</p>
         </a>
     </li>
     <li class="nav-item">
-        <a href="<?= base_url("transaksi/apotek/verifikasi-obat") ?>" class="nav-link">
+        <a href="<?= base_url("transaksi/infak/sudah") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Verifikasi Pemesanan Obat</p>
+            <p>Sudah di ACC</p>
         </a>
     </li>
     <li class="nav-item">
-        <a href="<?= base_url("transaksi/apotek/obat-keluar") ?>" class="nav-link">
+        <a href="<?= base_url("transaksi/infak/ditolak") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Obat Keluar</p>
+            <p>Ditolak</p>
         </a>
     </li>
     <li class="nav-item">
-        <a href="<?= base_url("transaksi/apotek/stock-opname") ?>" class="nav-link">
+        <a href="<?= base_url("transaksi/pengeluaran") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Stock Opname</p>
+            <p>Pengeluaran Infak</p>
         </a>
     </li>
 
-    <li class="nav-header">Laporan Apotek</li>
+    <li class="nav-header">Laporan Infak</li>
 
     <li class="nav-item">
-        <a href="<?= base_url("laporan/apotek/obat-kadaluarsa") ?>" class="nav-link">
+        <a href="<?= base_url("laporan/infak/pengguna") ?>" class="nav-link">
             <i class="nav-icon fas fa-file-alt"></i>
-            <p>Obat Kadaluarsa</p>
+            <p>Berdasarkan Pengguna</p>
         </a>
     </li>
+
     <li class="nav-item">
-        <a href="<?= base_url("laporan/apotek/mutasi-obat") ?>" class="nav-link">
+        <a href="<?= base_url("laporan/infak/rekening") ?>" class="nav-link">
             <i class="nav-icon fas fa-file-alt"></i>
-            <p>Mutasi Obat</p>
+            <p>Berdasarkan Rekening</p>
         </a>
     </li>
+
+    <li class="nav-item">
+        <a href="<?= base_url("laporan/infak/detail") ?>" class="nav-link">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>Detail Laporan</p>
+        </a>
+    </li>
+
 <?php endif ?>

@@ -144,7 +144,7 @@ class Rekening extends RFLController
         if (!$cekData) {
             echo json_encode([
                 "code"      => 404,
-                "message"   => "Data admin tidak ditemukan"
+                "message"   => "Data rekening tidak ditemukan"
             ]);
             die;
         }

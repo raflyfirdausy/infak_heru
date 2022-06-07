@@ -182,7 +182,7 @@ class Pengguna extends RFLController
     }
 
     public function edit()
-    {        
+    {
         $id_data        = $this->input->post("id_data");
         $password       = $this->input->post("password");
 
