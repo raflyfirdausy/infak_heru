@@ -52,24 +52,24 @@
         </ul>
     </li>
 
-    <li class="nav-header">Transaksi Infak</li>
+    <li class="nav-header">Transaksi</li>
 
     <li class="nav-item">
         <a href="<?= base_url("transaksi/infak/belum") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Belum Di ACC</p>
+            <p>Infak Belum Di ACC</p>
         </a>
     </li>
     <li class="nav-item">
         <a href="<?= base_url("transaksi/infak/sudah") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Sudah di ACC</p>
+            <p>Infak Sudah di ACC</p>
         </a>
     </li>
     <li class="nav-item">
         <a href="<?= base_url("transaksi/infak/ditolak") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p>Ditolak</p>
+            <p>Infak Ditolak</p>
         </a>
     </li>
     <li class="nav-item">
@@ -79,7 +79,7 @@
         </a>
     </li>
 
-    <li class="nav-header">Laporan Infak</li>
+    <!-- <li class="nav-header">Laporan Infak</li>
 
     <li class="nav-item">
         <a href="<?= base_url("laporan/infak/pengguna") ?>" class="nav-link">
@@ -100,6 +100,6 @@
             <i class="nav-icon fas fa-file-alt"></i>
             <p>Detail Laporan</p>
         </a>
-    </li>
+    </li> -->
 
 <?php endif ?>

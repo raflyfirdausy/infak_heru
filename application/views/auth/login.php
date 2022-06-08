@@ -20,7 +20,9 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="<?= base_url() ?>" class="h1"><b><?= $app_name ?></b></a>
+                <a href="<?= base_url() ?>" class="h1"><b><?= $_identitas->nama_aplikasi ?></b></a>
+                <br>
+                <span><?= $_identitas->pondok ?></span>
 
             </div>
             <div class="card-body">
@@ -42,8 +44,7 @@
                         </button>
                     </div>
                 <?php unset($_SESSION["sukses"]);
-                endif; ?>
-                <p class="login-box-msg">Silahkan masuk menggunakan email dan password kamu</p>
+                endif; ?>                
                 <form action="<?= base_url('auth/login_proses') ?>" method="POST">
                     <div class="input-group mb-3">
                         <div class="input-group-append">

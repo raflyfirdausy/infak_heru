@@ -12,9 +12,9 @@ class MY_Controller extends CI_Controller
         $identitas = $CI->identitas->order_by("id", "DESC")->as_object()->get();
 
         $this->global_data = [
-            "app_name"          => "Si Infak",
+            "app_name"          => $identitas->nama_aplikasi,
             "app_complete_name" => "Sistem Informasi Infak",
-            "author"            => "Heru",
+            "author"            => $identitas->copyright,
             "CI"                => $CI,
             "_session"          => $CI->session->userdata(SESSION),
             "title"             => ucwords(str_replace("_", " ", $this->router->fetch_class())),

@@ -23,12 +23,12 @@ class Dashboard extends RFLController
     {
         $idUser             = $this->userData->id;
 
-        $donasiTerkumpul    = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'ACC' AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiTerpakai     = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE jenis_mutasi = 'KELUAR'")->row_array()["total"];
+        $donasiTerkumpul    = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC' AND jenis_mutasi = 'MASUK'")->row_array()["total"];
+        $donasiTerpakai     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE jenis_mutasi = 'KELUAR'")->row_array()["total"];
 
-        $donasiDiterima     = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'ACC'        AND jenis_mutasi = 'MASUK' AND id_donatur = '$idUser'")->row_array()["total"];
-        $donasiPending      = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'PENDING'    AND jenis_mutasi = 'MASUK' AND id_donatur = '$idUser'")->row_array()["total"];
-        $donasiDitolak      = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'TOLAK'      AND jenis_mutasi = 'MASUK' AND id_donatur = '$idUser'")->row_array()["total"];
+        $donasiDiterima     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC'        AND jenis_mutasi = 'MASUK' AND id_donatur = '$idUser'")->row_array()["total"];
+        $donasiPending      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'PENDING'    AND jenis_mutasi = 'MASUK' AND id_donatur = '$idUser'")->row_array()["total"];
+        $donasiDitolak      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'TOLAK'      AND jenis_mutasi = 'MASUK' AND id_donatur = '$idUser'")->row_array()["total"];
 
         $donasikuTerakhir     = $this->vTrInfak
             ->where([
@@ -87,12 +87,12 @@ class Dashboard extends RFLController
     {
         $idUser             = $this->userData->id;
 
-        $donasiTerkumpul    = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'ACC' AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiTerpakai     = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE jenis_mutasi = 'KELUAR'")->row_array()["total"];
+        $donasiTerkumpul    = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC' AND jenis_mutasi = 'MASUK'")->row_array()["total"];
+        $donasiTerpakai     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE jenis_mutasi = 'KELUAR'")->row_array()["total"];
 
-        $donasiDiterima     = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'ACC'        AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiPending      = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'PENDING'    AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiDitolak      = $this->db->query("SELECT SUM(nominal) AS total FROM tr_infak WHERE status_verified = 'TOLAK'      AND jenis_mutasi = 'MASUK'")->row_array()["total"];
+        $donasiDiterima     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC'        AND jenis_mutasi = 'MASUK'")->row_array()["total"];
+        $donasiPending      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'PENDING'    AND jenis_mutasi = 'MASUK'")->row_array()["total"];
+        $donasiDitolak      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'TOLAK'      AND jenis_mutasi = 'MASUK'")->row_array()["total"];
 
         $donasikuTerakhir     = $this->vTrInfak
             ->where([
@@ -119,8 +119,6 @@ class Dashboard extends RFLController
             ->limit(10)
             ->order_by("id", "DESC")
             ->get_all() ?: [];
-
-       
 
         $data = [
             "donasiTerkumpul"       => $donasiTerkumpul     ?: 0,

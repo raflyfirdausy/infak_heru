@@ -265,4 +265,31 @@ class Donasi extends RFLController
 
         return $model;
     }
+
+    public function delete()
+    {
+        $id_data    = $this->input->post("id_data");
+        $cekData    = $this->trInfak->where(["id" => $id_data])->get();
+        if (!$cekData) {
+            echo json_encode([
+                "code"      => 404,
+                "message"   => "Data donasi tidak ditemukan"
+            ]);
+            die;
+        }
+
+        $delete = $this->trInfak->where(["id" => $cekData["id"]])->delete();
+        if (!$delete) {
+            echo json_encode([
+                "code"      => 503,
+                "message"   => "Terjadi kesalahan saat menghapus data donasi. Silahkan hubungi programmer"
+            ]);
+            die;
+        }
+
+        echo json_encode([
+            "code"      => 200,
+            "message"   => "Data donasi berhasil di hapus !"
+        ]);
+    }
 }

@@ -24,7 +24,7 @@
                 <div class="card card-outline card-primary">
                     <div class="card-header text-center">
                         <a href="<?= base_url() ?>" class="h1"><b>FORM PENDAFTARAN DONATUR</b></a>
-                        <h5><?= $app_name ?></h5>
+                        <h5><?= $app_name ?> <?= $_identitas->pondok ?></h5>
                     </div>
                     <div class="card-body">
 

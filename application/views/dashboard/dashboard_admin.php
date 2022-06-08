@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Dashboard Donatur</h1>
+                    <h1 class="m-0 text-dark">Dashboard Admin</h1>
                 </div>
             </div>
         </div>
@@ -34,7 +34,8 @@
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-cash"></i>
-                                </div>                                
+                                </div>
+                                <a href="<?= base_url("transaksi/infak/sudah") ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -46,7 +47,8 @@
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
-                                </div>                                
+                                </div>
+                                <a href="<?= base_url("transaksi/infak/belum") ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -58,7 +60,8 @@
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
-                                </div>                                
+                                </div>
+                                <a href="<?= base_url("transaksi/infak/ditolak") ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -71,7 +74,8 @@
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-cash"></i>
-                                </div>                                
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -83,7 +87,8 @@
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-cash"></i>
-                                </div>                                
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>                        
                        
@@ -92,59 +97,6 @@
             </div>
 
             <div class="row">
-
-                <div class="col-md-12">
-                    <div class="card card-outline card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title"><b>10 Donasimu yang Terakhir</b></h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-sm nowrap table-bordered table-striped datatable" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" style="width: 3%">No.</th>
-                                            <th>Tanggal</th>
-                                            <th>Nominal</th>
-                                            <th>No Rekening</th>
-                                            <th>Bank</th>
-                                            <th>Atas Nama</th>
-                                            <th>Status Verif</th>
-                                            <th>Keterangan</th>
-                                            <th>Jenis Donasi</th>
-                                            <th>Waktu Dibuat</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $no = 1;
-                                        foreach ($donasikuTerakhir as $dt) : ?>
-                                            <tr>
-                                                <td class="text-center"><?= $no++ ?></td>
-                                                <td><?= $dt["tgl_mutasi"] ?></td>
-                                                <td><?= Rupiah($dt["nominal"]) ?></td>
-                                                <td><?= $dt["rek_no"] ?></td>
-                                                <td><?= $dt["rek_bank"] ?></td>
-                                                <td><?= $dt["rek_nama"] ?></td>
-                                                <td><?= $dt["status_verified"] ?></td>
-                                                <td><?= $dt["keterangan"] ?></td>
-                                                <td><?= $dt["nama_jenis"] ?></td>
-                                                <td><?= $dt["created_at"] ?></td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="col-md-6">
                     <div class="card card-outline card-success">

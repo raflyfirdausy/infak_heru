@@ -36,6 +36,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <a href="<?= back() ?>" type="button" class="btn btn-primary float-left"><i class="fas fa-chevron-left"></i> Kembali</a>
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal_tambah"><i class="fas fa-plus"></i> Tambah Data <?= $title ?></button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -46,12 +47,8 @@
                                     <th style="width: 8%">Aksi</th>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
-                                    <th>No Rekening</th>
-                                    <th>Bank</th>
-                                    <th>Atas Nama</th>
-                                    <th>Status Verif</th>
                                     <th>Keterangan</th>
-                                    <th>Catatan Petugas</th>
+                                    <th>Petugas</th>
                                     <th>Waktu Dibuat</th>
                                 </tr>
                             </thead>
@@ -61,6 +58,81 @@
             </div>
         </div>
     </section>
+</div>
+
+<div class="modal fade myModal" id="modal_tambah">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Form Tambah <?= $title ?></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="<?= base_url("transaksi/$module/add") ?>" id="form_add" enctype='multipart/form-data'>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="control-label">Tanggal <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tgl_mutasi" id="tgl_mutasi" autocomplete="off" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="control-label">Nominal <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="nominal" id="nominal" autocomplete="off" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="recipient-name" class="control-label">Keterangan</label>
+                                <textarea class="form-control" name="keterangan" id="keterangan" rows="3" placeholder="Masukan keterangan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary add_btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade myModal" id="modal_edit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Form Edit <?= $title ?></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="<?= base_url("transaksi/$module/edit") ?>" id="form_edit" enctype='multipart/form-data'>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="control-label">Tanggal <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tgl_mutasi" id="tgl_mutasi_edit" autocomplete="off" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="recipient-name" class="control-label">Nominal <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="nominal" id="nominal_edit" autocomplete="off" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="recipient-name" class="control-label">Keterangan</label>
+                                <textarea class="form-control" name="keterangan" id="keterangan_edit" rows="3" placeholder="Masukan keterangan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <input type="hidden" name="id_data" id="id_data">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary add_btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -112,22 +184,6 @@
                 "targets": [6],
                 "orderable": false
             },
-            {
-                "targets": [7],
-                "orderable": false
-            },
-            {
-                "targets": [8],
-                "orderable": false
-            },
-            {
-                "targets": [9],
-                "orderable": false
-            },
-            {
-                "targets": [10],
-                "orderable": false
-            },
         ],
         "ajax": {
             "url": "<?= base_url("transaksi/$module/get_data/") ?>",
@@ -148,12 +204,8 @@
                 render: function(data, type, row, meta) {
                     let disabled = ''
                     let tombol = ''
-                    if (row.status_verified != "PENDING") {
-                        disabled = 'disabled'
-                    }
-                    tombol += `<a  href="<?= base_url("transaksi/donasi/edit/") ?>${data}" type="button" title="Edit" class="btn ${disabled} btn-sm btn-info waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-edit"></i></span></a>&nbsp;`
+                    tombol += `<button type="button" title="Edit" onclick="modal_edit('${data}')" class="btn btn-sm btn-info waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-edit"></i></span></button>&nbsp;`
                     tombol += `<button ${disabled} type="button" title="Hapus" onclick="hapus('${data}')" class="btn btn-sm btn-danger waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-trash"></i></span></button>&nbsp;`
-                    tombol += `<a target="_blank" href="<?= asset("infak/bukti/") ?>${row.bukti}" title="Lihat Bukti" class="btn btn-sm btn-success waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-eye"></i></span></a>&nbsp;`
                     return tombol;
                 }
             },
@@ -164,24 +216,11 @@
                 "data": "nominal",
             },
             {
-                "data": "rek_no",
-            },
-            {
-                "data": "rek_bank",
-            },
-            {
-                "data": "rek_nama",
-            },
-            {
-                "data": "status_verified",
-            },
-            {
                 "data": "keterangan",
             },
             {
-                "data": "catatan_petugas",
+                "data": "nama_petugas",
             },
-
             {
                 "data": "created_at",
             },
@@ -220,7 +259,7 @@
         $.ajax({
             type: "POST",
             dataType: "JSON",
-            url: "<?= base_url("master/$module/add") ?>",
+            url: "<?= base_url("transaksi/$module/add") ?>",
             data: data,
             processData: false,
             contentType: false,
@@ -273,7 +312,7 @@
         $.ajax({
             type: "POST",
             dataType: "JSON",
-            url: "<?= base_url("master/$module/edit") ?>",
+            url: "<?= base_url("transaksi/$module/edit") ?>",
             data: data,
             processData: false,
             contentType: false,
@@ -318,18 +357,16 @@
     const modal_edit = (id) => {
         $("#modal_edit").modal("show")
         $.ajax({
-            url: "<?= base_url("master/$module/get/") ?>" + id,
+            url: "<?= base_url("transaksi/$module/get/") ?>" + id,
             type: "GET",
             dataType: "JSON",
             contentType: "application/json; charset=utf-8",
             success: function(result) {
                 if (result.code == 200) {
                     let data = result.data
-                    $("#nama_bank_edit").val(data.nama_bank)
-                    $("#atas_nama_edit").val(data.atas_nama)
-                    $("#no_rekening_edit").val(data.no_rekening)
-                    $("#keterangan_edit").val(data.keterangan)
-                    $("#status_edit").val(data.status).trigger("change")
+                    $("#tgl_mutasi_edit").val(data.tgl_mutasi)
+                    $("#nominal_edit").val(data.nominal)                    
+                    $("#keterangan_edit").val(data.keterangan)                    
                     $("#id_data").val(data.id)
                 } else {
                     Swal.fire({
