@@ -1,6 +1,6 @@
 <?php if (validasiRole("DONATUR")) : ?>
     <li class="nav-item">
-        <a href="<?= base_url("daftar-rekening") ?>" class="nav-link">
+        <a href="<?= base_url("master/daftar-rekening") ?>" class="nav-link">
             <i class="nav-icon fas fa-users-cog"></i>
             <p>Daftar rekening pondok</p>
         </a>
