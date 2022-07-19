@@ -1,13 +1,30 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6 mb-1">
                     <h1 class="m-0 text-dark">Dashboard Admin</h1>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-3">
+                    <select name="tahun" id="tahun" class="form-control select2bs4">
+                        <?php foreach ($listTahun as $lt) : ?>
+                            <option <?= ($tahun == $lt["tahun"]) ? "selected" : "" ?> value="<?= $lt["tahun"] ?>"><?= $lt["tahun"] ?></option>
+                        <?php endforeach ?>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $("#tahun").change(e => {
+            let tahun = $("#tahun").val()
+            window.location = `<?= base_url("dashboard/admin/") ?>${tahun}`;
+        })
+    </script>
+
     <section class="content">
         <div class="container-fluid">
 
@@ -90,8 +107,8 @@
                                 </div>
                                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                        </div>                        
-                       
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -155,4 +155,23 @@ class Infak extends RFLController
             "message"   => "Data donasi berhasil di proses !"
         ]);
     }
+
+    public function delete()
+    {
+        $id_data    = $this->input->post("id_data");
+
+        $delete = $this->trInfak->where(["id" => $id_data])->delete();
+        if (!$delete) {
+            echo json_encode([
+                "code"      => 503,
+                "message"   => "Terjadi kesalahan saat menghapus data donasi. Silahkan hubungi programmer"
+            ]);
+            die;
+        }
+
+        echo json_encode([
+            "code"      => 200,
+            "message"   => "Data donasi berhasil di hapus !"
+        ]);
+    }
 }

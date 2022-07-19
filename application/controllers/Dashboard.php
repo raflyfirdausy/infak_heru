@@ -10,16 +10,20 @@ class Dashboard extends RFLController
         $this->load->model("VtrInfak_model", "vTrInfak");
     }
 
-    public function index()
+    public function index($tahun = NULL)
     {
         if (validasiRole("DONATUR")) {
-            $this->dashboardDonatur();
+            $this->donatur();
         } else {
-            $this->dashboardAdmin();
+            if ($tahun == NULL || !is_numeric($tahun)) {
+                $tahun = date("Y");
+                redirect("dashboard/admin/$tahun");
+            }
+            $this->admin($tahun);
         }
     }
 
-    public function dashboardDonatur()
+    public function donatur()
     {
         $idUser             = $this->userData->id;
 
@@ -83,21 +87,22 @@ class Dashboard extends RFLController
         $this->loadViewBack("dashboard/dashboard_donatur", $data);
     }
 
-    public function dashboardAdmin()
+    public function admin($tahun)
     {
         $idUser             = $this->userData->id;
 
-        $donasiTerkumpul    = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC' AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiTerpakai     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE jenis_mutasi = 'KELUAR'")->row_array()["total"];
+        $donasiTerkumpul    = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC' AND jenis_mutasi = 'MASUK' AND YEAR(created_at) = $tahun")->row_array()["total"];
+        $donasiTerpakai     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE jenis_mutasi = 'KELUAR' AND YEAR(created_at) = $tahun")->row_array()["total"];
 
-        $donasiDiterima     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC'        AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiPending      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'PENDING'    AND jenis_mutasi = 'MASUK'")->row_array()["total"];
-        $donasiDitolak      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'TOLAK'      AND jenis_mutasi = 'MASUK'")->row_array()["total"];
+        $donasiDiterima     = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'ACC'        AND jenis_mutasi = 'MASUK' AND YEAR(created_at) = $tahun")->row_array()["total"];
+        $donasiPending      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'PENDING'    AND jenis_mutasi = 'MASUK' AND YEAR(created_at) = $tahun")->row_array()["total"];
+        $donasiDitolak      = $this->db->query("SELECT SUM(nominal) AS total FROM vtr_infak WHERE status_verified = 'TOLAK'      AND jenis_mutasi = 'MASUK' AND YEAR(created_at) = $tahun")->row_array()["total"];
 
         $donasikuTerakhir     = $this->vTrInfak
             ->where([
                 "id_donatur"        => $idUser,
                 "jenis_mutasi"      => "MASUK",
+                "YEAR(created_at)"  => $tahun
             ])
             ->limit(10)
             ->order_by("id", "DESC")
@@ -106,7 +111,8 @@ class Dashboard extends RFLController
         $donasiSemuaTerakhir     = $this->vTrInfak
             ->where([
                 "jenis_mutasi"      => "MASUK",
-                "status_verified"   => "ACC"
+                "status_verified"   => "ACC",
+                "YEAR(created_at)"  => $tahun
             ])
             ->limit(10)
             ->order_by("id", "DESC")
@@ -115,10 +121,13 @@ class Dashboard extends RFLController
         $donasiKeluar     = $this->vTrInfak
             ->where([
                 "jenis_mutasi"      => "KELUAR",
+                "YEAR(created_at)"  => $tahun
             ])
             ->limit(10)
             ->order_by("id", "DESC")
             ->get_all() ?: [];
+
+        $listTahun = $this->db->query("SELECT DISTINCT(YEAR(created_at)) as tahun FROM tr_infak WHERE deleted_at IS NULL ORDER BY tahun ASC")->result_array();        
 
         $data = [
             "donasiTerkumpul"       => $donasiTerkumpul     ?: 0,
@@ -131,7 +140,10 @@ class Dashboard extends RFLController
 
             "donasikuTerakhir"      => $donasikuTerakhir,
             "donasiSemuaTerakhir"   => $donasiSemuaTerakhir,
-            "donasiKeluar"          => $donasiKeluar
+            "donasiKeluar"          => $donasiKeluar,
+
+            "listTahun"             => $listTahun,
+            "tahun"                 => $tahun,
         ];
         $this->loadViewBack("dashboard/dashboard_admin", $data);
     }

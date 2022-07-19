@@ -188,9 +188,12 @@
                     let tombol = ''
                     if (row.status_verified != "PENDING") {
                         disabled = 'disabled'
-                    }
+                    }                   
                     tombol += `<button type="button" title="Edit" onclick="modal_edit('${data}')" class="btn btn-sm btn-info waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-edit"></i> Proses</span></button>&nbsp;`
                     tombol += `<a target="_blank" href="<?= asset("infak/bukti/") ?>${row.bukti}" title="Lihat Bukti" class="btn btn-sm btn-success waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-eye"></i></span></a>&nbsp;`
+                    <?php if ($status_verified == "ACC") : ?>
+                        tombol += `<button type="button" title="Hapus" onclick="hapus('${data}')" class="btn btn-sm btn-danger waves-effect waves-light" type="button"><span class="btn-label text-white"><i class="fas fa-trash"></i></span></button>&nbsp;`
+                    <?php endif ?>
                     return tombol;
                 }
             },
@@ -395,7 +398,7 @@
             if (result.value) {
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url("transaksi/$module/delete") ?>",
+                    url: "<?= base_url('transaksi/infak/delete') ?>",
                     data: {
                         "id_data": id
                     },

@@ -52,6 +52,29 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <?php if ($this->userData->level == "KEPALA_PONDOK" || $this->userData->level == "PETUGAS") : ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-danger navbar-badge"><?= $this->belumVerif["total"] ?></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right" syle="min-width: 720px;">
+                            <span class="dropdown-item dropdown-header"><?= $this->belumVerif["total"] ?> Donasi belum diverifikasi</span>
+                            <div class="dropdown-divider"></div>
+                            <?php foreach ($this->belumVerif["sample"] as $bv) : ?>
+                                <a href="#" class="dropdown-item">
+                                    <?= $bv["nama_donatur"] ?>
+                                    <span class="float-right text-muted text-sm"><?= Rupiah2($bv["nominal"]) ?></span>
+                                </a>
+                            <?php endforeach ?>
+
+                            <div class="dropdown-divider"></div>
+                            <a href="<?= base_url("transaksi/infak/belum") ?>" class="dropdown-item dropdown-footer">Lihat semua donasi belum diverifikasi</a>
+                        </div>
+                    </li>
+                <?php endif ?>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-user"></i> <?= $this->userData->nama ?> (<?= str_replace('_', " ", $this->userData->level) ?>)
